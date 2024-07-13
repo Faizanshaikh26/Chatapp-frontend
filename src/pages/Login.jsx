@@ -1,3 +1,5 @@
+import { useFileHandler, useInputValidation } from '6pp';
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import {
   Avatar,
   Button,
@@ -8,19 +10,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import React, { useState } from "react";
 import { VisuallyHiddeninput } from "../components/styles/StyledComponents";
-import { useInputValidation, useFileHandler } from '6pp';
 import { usernameValidator } from "../utils/Validators";
 
+import axios from 'axios'; // Import Axios
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { userExists } from "../redux/reducer/auth";
-import toast from "react-hot-toast";
-import axios from 'axios'; // Import Axios
+import { server } from '../constants/config';
 
 function Login() {
-  const server="https://chatapp-frontend-rose-six.vercel.app"
+  console.log("Login mai se hu",server)
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false)
   const name = useInputValidation("");
@@ -49,7 +50,7 @@ setIsLoading(true)
     formData.append("avatar", avatar.file);
 
     try {
-      const response = await axios.post(`${server}/api/v1/user/signup`, formData, {
+      const response = await axios.post(`https://chatapp-frontend-rose-six.vercel.app/api/v1/user/signup`, formData, {
         withCredentials: true,  // Ensure credentials are included
         headers: {
           'Content-Type': 'multipart/form-data',  // Set correct content type for FormData
@@ -86,7 +87,7 @@ setIsLoading(true)
     };
 
     try {
-      const response = await axios.post(`${server}/api/v1/user/login`, requestBody, {
+      const response = await axios.post(`https://chatapp-frontend-rose-six.vercel.app/api/v1/user/login`, requestBody, {
         withCredentials: true,  // Ensure credentials are included
       });
 
