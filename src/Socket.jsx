@@ -7,8 +7,11 @@ const SocketContext = createContext();
 
 const SocketProvider = ({ children }) => {
   const socket = useMemo(() => {
-    return io(server, {
+    return io('wss://chatapp-api-ursy.onrender.com', {
       withCredentials: true,
+      path: '/socket.io',
+  transports: ['websocket','pooling'],
+  secure: true,
     });
   }, []);
   
