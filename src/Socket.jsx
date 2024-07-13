@@ -1,12 +1,13 @@
 import { createContext, useContext, useMemo } from 'react';
 import { io } from 'socket.io-client';
+import { server } from './constants/config';
 
 
 const SocketContext = createContext();
 
 const SocketProvider = ({ children }) => {
   const socket = useMemo(() => {
-    return io("https://chatapp-frontend-rose-six.vercel.app", {
+    return io(server, {
       withCredentials: true,
     });
   }, []);
@@ -23,4 +24,3 @@ const useSocket = () => {
 };
 
 export { SocketProvider, useSocket };
-
