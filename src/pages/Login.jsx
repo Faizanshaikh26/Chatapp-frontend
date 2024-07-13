@@ -30,80 +30,159 @@ function Login() {
   const avatar = useFileHandler("single");
   const dispatch = useDispatch();
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    const toastId = toast.loading("Signing...")
-setIsLoading(true)
-    if (!avatar.file) {
-      toast.error("Please upload an avatar");
-      return;
-    }
+//   const handleSignup = async (e) => {
+//     e.preventDefault();
+//     const toastId = toast.loading("Signing...")
+// setIsLoading(true)
+//     if (!avatar.file) {
+//       toast.error("Please upload an avatar");
+//       return;
+//     }
 
-    const formData = new FormData();
-    formData.append("name", name.value);
-    formData.append("email", email.value);
-    formData.append("bio", bio.value);
-    formData.append("username", username.value);
-    formData.append("password", password.value);
-    formData.append("avatar", avatar.file);
+//     const formData = new FormData();
+//     formData.append("name", name.value);
+//     formData.append("email", email.value);
+//     formData.append("bio", bio.value);
+//     formData.append("username", username.value);
+//     formData.append("password", password.value);
+//     formData.append("avatar", avatar.file);
 
-    try {
-      const response = await axios.post(`${server}/api/v1/user/signup`, formData, {
-        withCredentials: true,  // Ensure credentials are included
-        headers: {
-          'Content-Type': 'multipart/form-data',  // Set correct content type for FormData
-        },
-      });
+//     try {
+//       const response = await axios.post(`${server}/api/v1/user/signup`, formData, {
+//         withCredentials: true,  // Ensure credentials are included
+//         headers: {
+//           'Content-Type': 'multipart/form-data',  // Set correct content type for FormData
+//         },
+//       });
 
-      const data = response.data;
+//       const data = response.data;
 
-      if (!response.data.success) {
-        throw new Error(data.message || "Something went wrong");
-      }
+//       if (!response.data.success) {
+//         throw new Error(data.message || "Something went wrong");
+//       }
 
-      dispatch(userExists(true));
-      toast.success(data.message,{
-        id:toast
-      });
+//       dispatch(userExists(true));
+//       toast.success(data.message,{
+//         id:toast
+//       });
 
-    } catch (error) {
-      toast.error(error.message || "Something went wrong",{id:toastId});
-    }
-    finally{
-      setIsLoading(false)
-    }
-  };
+//     } catch (error) {
+//       toast.error(error.message || "Something went wrong",{id:toastId});
+//     }
+//     finally{
+//       setIsLoading(false)
+//     }
+//   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const toastId=toast.loading("Loggin...")
+//   const handleLogin = async (e) => {
+//     e.preventDefault();
+//     const toastId=toast.loading("Loggin...")
     
-setIsLoading(true)
-    const requestBody = {
-      email: email.value,
-      password: password.value,
-    };
+// setIsLoading(true)
+//     const requestBody = {
+//       email: email.value,
+//       password: password.value,
+//     };
 
-    try {
-      const response = await axios.post(`${server}/api/v1/user/login`, requestBody, {
-        withCredentials: true,  // Ensure credentials are included
-      });
+//     try {
+//       const response = await axios.post(`${server}/api/v1/user/login`, requestBody, {
+//         withCredentials: true,  // Ensure credentials are included
+//       });
 
-      const data = response.data;
+//       const data = response.data;
 
-      if (!response.data.success) {
-        throw new Error(data.message || "Something went wrong");
-      }
+//       if (!response.data.success) {
+//         throw new Error(data.message || "Something went wrong");
+//       }
 
-      dispatch(userExists(true));
-      toast.success(data.message,{id:toastId});
-    } catch (error) {
-      toast.error(error.message || "Something went wrong",{id:toastId});
+//       dispatch(userExists(true));
+//       toast.success(data.message,{id:toastId});
+//     } catch (error) {
+//       toast.error(error.message || "Something went wrong",{id:toastId});
+//     }
+//     finally{
+//       setIsLoading(false)
+//     }
+//   };
+const handleSignup = async (e) => {
+  e.preventDefault();
+  const toastId = toast.loading("Signing...");
+  setIsLoading(true);
+  if (!avatar.file) {
+    toast.error("Please upload an avatar");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("name", name.value);
+  formData.append("email", email.value);
+  formData.append("bio", bio.value);
+  formData.append("username", username.value);
+  formData.append("password", password.value);
+  formData.append("avatar", avatar.file);
+
+  try {
+    const response = await fetch(`${server}/api/v1/user/signup`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+      },
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Something went wrong");
     }
-    finally{
-      setIsLoading(false)
-    }
+
+    dispatch(userExists(true));
+    toast.success(data.message, { id: toastId });
+
+  } catch (error) {
+    toast.error(error.message || "Something went wrong", { id: toastId });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+  const toastId = toast.loading("Logging...");
+  setIsLoading(true);
+
+  const requestBody = {
+    email: email.value,
+    password: password.value,
   };
+
+  try {
+    const response = await fetch(`${server}/api/v1/user/login`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Something went wrong");
+    }
+
+    dispatch(userExists(true));
+    toast.success(data.message, { id: toastId });
+
+  } catch (error) {
+    toast.error(error.message || "Something went wrong", { id: toastId });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <Container

@@ -2,6 +2,7 @@ import { createContext, useContext, useMemo } from 'react';
 import { io } from 'socket.io-client';
 import { server } from './constants/config';
 
+
 const SocketContext = createContext();
 
 const SocketProvider = ({ children }) => {
@@ -10,7 +11,7 @@ const SocketProvider = ({ children }) => {
       withCredentials: true,
     });
   }, []);
-
+  
   return (
     <SocketContext.Provider value={socket}>
       {children}
