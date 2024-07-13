@@ -13,13 +13,14 @@ import React, { useState } from "react";
 import { VisuallyHiddeninput } from "../components/styles/StyledComponents";
 import { useInputValidation, useFileHandler } from '6pp';
 import { usernameValidator } from "../utils/Validators";
-import { server } from "../constants/config";
+
 import { useDispatch } from "react-redux";
 import { userExists } from "../redux/reducer/auth";
 import toast from "react-hot-toast";
 import axios from 'axios'; // Import Axios
 
 function Login() {
+  const server="https://chatapp-frontend-rose-six.vercel.app"
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false)
   const name = useInputValidation("");
