@@ -7,7 +7,9 @@ const SocketContext = createContext();
 
 const SocketProvider = ({ children }) => {
   const socket = useMemo(() => {
-    return io(server)
+    return io(server, {
+      withCredentials: true,
+    });
   }, []);
   
   return (

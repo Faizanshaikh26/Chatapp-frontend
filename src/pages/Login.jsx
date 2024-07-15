@@ -124,7 +124,7 @@ const handleSignup = async (e) => {
   try {
     const response = await fetch(`${server}/api/v1/user/signup`, {
       method: 'POST',
-
+      credentials: 'include',
       headers: {
         'Accept': 'application/json',
       },
@@ -160,7 +160,7 @@ const handleLogin = async (e) => {
   try {
     const response = await fetch(`${server}/api/v1/user/login`, {
       method: 'POST',
-     
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },

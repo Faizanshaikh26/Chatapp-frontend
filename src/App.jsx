@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`${server}/api/v1/user/me`)
+      .get(`${server}/api/v1/user/me`, { withCredentials: true })
       .then(({ data }) => dispatch(userExists(data.user)))
       .catch((err) => dispatch(userNotExists()));
   }, [dispatch]);
