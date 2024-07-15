@@ -9,14 +9,14 @@ const api = createApi({
     myChats: builder.query({
       query: () => ({
         url: "chat/my",
-        credentials: "include",
+        
       }),
       providesTags: ["Chat"],
     }),
     searchUser: builder.query({
       query: (name) => ({
         url: `user/search?name=${name}`,
-        credentials: "include",
+        
       }),
       providesTags: ["User"],
     }),
@@ -24,7 +24,7 @@ const api = createApi({
       query: (data) => ({
         url: "user/sendrequest",
         method: "PUT",
-        credentials: "include",
+        
         body: data,
       }),
       invalidatesTags: ["User"],
@@ -32,7 +32,7 @@ const api = createApi({
     getNotifications: builder.query({
       query: () => ({
         url: "user/notifications",
-        credentials: "include",
+        
       }),
       keepUnusedDataFor: 0,
     }),
@@ -40,7 +40,7 @@ const api = createApi({
       query: (data) => ({
         url: "user/acceptrequest",
         method: "PUT",
-        credentials: "include",
+        
         body: data,
       }),
       invalidatesTags: ["Chat"],
@@ -52,7 +52,7 @@ const api = createApi({
 
         return {
           url,
-          credentials: "include",
+          
         };
       },
       providesTags: ["Chat"],
@@ -60,7 +60,7 @@ const api = createApi({
     getMessages: builder.query({
       query: ({ chatId, page }) => ({
         url: `chat/message/${chatId}?page=${page}`,
-        credentials: "include",
+        
       }),
 
       keepUnusedDataFor: 0,
@@ -69,14 +69,14 @@ const api = createApi({
       query: (data) => ({
         url: "chat/message",
         method: "POST",
-        credentials: "include",
+        
         body: data,
       }),
     }),
     getMyGroups: builder.query({
       query: () => ({
         url: `chat/my/groups`,
-        credentials: "include",
+        
       }),
       providesTags: ["Chat"],
     }),
@@ -87,7 +87,7 @@ const api = createApi({
 
         return {
           url,
-          credentials: "include",
+          
         };
       },
       providesTags: ["Chat"],
@@ -96,7 +96,7 @@ const api = createApi({
       query: ({ name, members }) => ({
         url: "chat/new",
         method: "POST",
-        credentials: "include",
+        
         body: { name, members },
       }),
       invalidatesTags: ["Chat"],
@@ -105,7 +105,7 @@ const api = createApi({
       query: ({ chatId, name }) => ({
         url: `chat/${chatId}`,
         method: "PUT",
-        credentials: "include",
+        
         body: { name },
       }),
       invalidatesTags: ["Chat"],
@@ -114,7 +114,7 @@ const api = createApi({
       query: ({ chatId, userId }) => ({
         url: `chat/removemember`,
         method: "PUT",
-        credentials: "include",
+        
         body: { chatId, userId },
       }),
       invalidatesTags: ["Chat"],
@@ -124,7 +124,7 @@ const api = createApi({
       query: ({ members, chatId }) => ({
         url: `chat/addmembers`,
         method: "PUT",
-        credentials: "include",
+        
         body: { members, chatId },
       }),
       invalidatesTags: ["Chat"],
@@ -133,7 +133,7 @@ const api = createApi({
       query: (chatId) => ({
         url: `chat/${chatId}`,
         method: "DELETE",
-        credentials: "include",
+        
       }),
       invalidatesTags: ["Chat"],
     }),
@@ -141,35 +141,35 @@ const api = createApi({
       query: (chatId) => ({
         url: `chat/leave/${chatId}`,
         method: "DELETE",
-        credentials: "include",
+        
       }),
       invalidatesTags: ["Chat"],
     }),
     getDashBoardStats: builder.query({
       query: () => ({
         url: "admin/stats",
-        credentials: "include",
+        
       }),
       providesTags: ["Chat", "User"],
     }),
     getAllUsersData: builder.query({
       query: () => ({
         url: "admin/users",
-        credentials: "include",
+        
       }),
       providesTags: ["Chat", "User"],
     }),
     getAllChats: builder.query({
       query: () => ({
         url: "admin/chats",
-        credentials: "include",
+        
       }),
       providesTags: ["Chat", "User"],
     }),
     getAllMessages: builder.query({
       query: () => ({
         url: 'admin/messages',
-        credentials: 'include',
+        
       }),
       providesTags: ['Chat', 'User'],
     }),
