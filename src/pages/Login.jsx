@@ -30,6 +30,9 @@ function Login() {
   const avatar = useFileHandler("single");
   const dispatch = useDispatch();
 
+
+  console.log("Login mai se hu",server)
+
 //   const handleSignup = async (e) => {
 //     e.preventDefault();
 //     const toastId = toast.loading("Signing...")
